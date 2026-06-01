@@ -1,28 +1,48 @@
-name: "Deployment Status"
-description: "Creates a GitHub Deployment status update"
-author: "chrnorm"
+name: 'Deployment Status'
+description: 'Creates a GitHub Deployment status update'
+author: 'chrnorm'
 branding:
   icon: arrow-up
   color: gray-dark
 inputs:
+  repo:
+    description: 'A custom repository to create the deployment for. Defaults to the repo the action is running in.'
+    required: false
+  owner:
+    description: 'A custom owner to create the deployment for. Defaults to the repo owner the action is running in.'
+    required: false
   state:
-    description: "State for the deployment"
+    description: 'State for the deployment'
     required: true
   token:
-    description: "Github repository token"
+    description: 'Github repository token'
     required: true
+  log_url:
+    description: 'Sets the URL for deployment output'
+    required: false
   target_url:
-    description: "Target url location"
+    description: 'Deprecated alias for environment_url'
     required: false
   environment_url:
-    description: "Sets the URL for accessing your environment"
+    description: 'Sets the URL for accessing your environment'
+    required: false
+    default: ''
+  environment:
+    description: 'Name for the target deployment environment, which can be changed when setting a deploy status.'
     required: false
   description:
-    description: "Descriptive message about the deployment"
+    description: 'Descriptive message about the deployment'
     required: false
   deployment_id:
-    description: "The ID of the deployment"
+    description: 'The ID of the deployment'
     required: true
+  auto_inactive:
+    description: "Adds a new inactive status to all prior non-transient, non-production environment deployments with the same repository and environment name as the created status's deployment. An inactive status is only added to deployments that had a success state."
+    required: false
+    default: 'true'
+  github_base_url:
+    description: 'Changes the API base URL for a GitHub Enterprise server.'
+    required: false
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: 'node24'
+  main: 'dist/index.js'
